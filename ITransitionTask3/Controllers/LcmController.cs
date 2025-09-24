@@ -11,12 +11,12 @@ public class LcmController : ControllerBase
     {
         if (!int.TryParse(x, out int a) || !int.TryParse(y, out int b) || a <= 0 || b <= 0)
         {
-            return Content("NaN", "text/plain");
+            return Content("NaN", );
         }
 
         int gcd = Gcd(a, b);
         long lcm = (long)a / gcd * b; // use long to avoid overflow
-        return Content(lcm.ToString(), "text/plain");
+        return Content(lcm);
     }
 
     private int Gcd(int a, int b)
