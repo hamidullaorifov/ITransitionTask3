@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Numerics;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ITransitionTask3.Controllers;
 
@@ -9,21 +10,21 @@ public class LcmController : ControllerBase
     [HttpGet]
     public IActionResult Get([FromQuery] string? x, [FromQuery] string? y)
     {
-        if (!long.TryParse(x, out long a) || !long.TryParse(y, out long b) || a <= 0 || b <= 0)
+        if (!BigInteger.TryParse(x, out BigInteger a) || !BigInteger.TryParse(y, out BigInteger b) || a <= 0 || b <= 0)
         {
             return Content("NaN", "text/plain");
         }
 
-        long gcd = Gcd(a, b);
-        long lcm = (long)a / gcd * b; // use long to avoid overflow
+        BigInteger gcd = Gcd(a, b);
+        BigInteger lcm = (BigInteger)a / gcd * b; // use BigInteger to avoid overflow
         return Content(lcm.ToString(), "text/plain");
     }
 
-    private long Gcd(long a, long b)
+    private BigInteger Gcd(BigInteger a, BigInteger b)
     {
         while (b != 0)
         {
-            long t = b;
+            BigInteger t = b;
             b = a % b;
             a = t;
         }
