@@ -14,10 +14,6 @@ public class LcmController : ControllerBase
         {
             return Content("NaN", "text/plain");
         }
-        if (a == 0 || b == 0)
-        {
-            return Content("0", "text/plain");
-        }
 
         BigInteger gcd = Gcd(a, b);
         BigInteger lcm = (BigInteger)a / gcd * b; // use BigInteger to avoid overflow
@@ -26,6 +22,10 @@ public class LcmController : ControllerBase
 
     private BigInteger Gcd(BigInteger a, BigInteger b)
     {
+        if (a == 0 || b == 0)
+        {
+            return 0;
+        }
         while (b != 0)
         {
             BigInteger t = b;
