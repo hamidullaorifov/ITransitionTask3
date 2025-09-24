@@ -10,9 +10,13 @@ public class LcmController : ControllerBase
     [HttpGet]
     public IActionResult Get([FromQuery] string? x, [FromQuery] string? y)
     {
-        if (!BigInteger.TryParse(x, out BigInteger a) || !BigInteger.TryParse(y, out BigInteger b) || a <= 0 || b <= 0)
+        if (!BigInteger.TryParse(x, out BigInteger a) || !BigInteger.TryParse(y, out BigInteger b) || a < 0 || b < 0)
         {
             return Content("NaN", "text/plain");
+        }
+        if (a == 0 || b == 0)
+        {
+            return Content("0", "text/plain");
         }
 
         BigInteger gcd = Gcd(a, b);
